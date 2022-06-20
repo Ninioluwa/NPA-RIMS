@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div>
+    <p class="text-2xl font-bold">All Issues</p>
+
+    
+        <div class = "issue_list mt-4 flex items-center justify-center w-full">
+            <table class="border border-gray-700">
+                <tr class="border border-gray-700">
+                    <th class="border border-gray-700 px-4">Subject</th>
+                    <th class="border border-gray-700 p-1">Port</th>
+                    <th class="border border-gray-700 p-1">Sen Number</th>
+                    <th class="border border-gray-700 p-1">Status</th>
+                    <th class="border border-gray-700 p-1">Date</th>
+                    <th class="border border-gray-700 p-1">Action</th>
+                    
+
+                </tr>
+    {% for issue in issues %}
+                <tr class="border border-gray-700">
+                 
+                    <td class="border border-gray-700 p-1">{{ issue }}</td>
+                    <td class="border border-gray-700 p-1">{{ issue.port }}</td>
+                    <td class="border border-gray-700 p-1">{{ issue.sen_no }}</td>
+                    <td class="border border-gray-700 p-1">{{ issue.status }}</td>
+                    <td class="border border-gray-700 p-1">{{ issue.date_submitted }}</td>
+                    <!-- <td class="border border-gray-700 p-1"><a href="{{ issue.pk }}/">Edit</a></td> -->
+                    <td class="border border-gray-700 p-1"><a href="/{{ issue.pk }}/update">Update</a> 
+                                                           <a href="/{{ issue.pk }}/delete"> Delete</a>  </td>
+                </tr>
+    {% endfor %}          
+            </table>
+  
+        </div>
+
+        <div>
+            <b>LAGOS PORTS</b>
+            <ul>
+                {% for lagos_issue in lagos_issues %}
+                    <li>{{ lagos_issue }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+       
+    
+{% endblock content %}

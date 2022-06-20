@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RIMS</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.0.2/tailwind.min.css">
+</head>
+<body>
+    <!-- NavBar -->
+    <div class="bg-green-600 p-2 w-full flex justify-between">
+        <a href="/" class="text-white font-bold font-mono text-2xl">NPA</a>
+        <div class="flex justify-end space-x-4 font-bold font-mono text-xl text-white">
+          <a href="/dashboard" class="hover:text-gray-200"> Issues &nbsp; </a>
+          {% if not request.user.is_authenticated %}  
+            <a href="{% url 'signup' %}" class="hover:text-gray-200"> SignUp </a>
+          {% endif %}
+          {% if request.user.is_authenticated %}
+            {{ request.user.username }}
+            <a href="{% url 'logout' %}" class="hover:text-gray-200"> Logout </a>
+          {% else %}
+            <a href="{% url 'login' %}" class="hover:text-gray-200"> Login </a>
+          {% endif %}
+          
+        </div>
+      </div>
+
+    <main class="m-4">
+      <div class="mt-24 flex items-center justify-center">
+        
+{% block content %}
+
+
+{% endblock content %}
+    </div>
+    </main>
+</body>
+</html>

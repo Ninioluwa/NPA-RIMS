@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <div>
+    <p class="text-2xl font-bold">Submit new Issue</p>
+
+    <form method="post" action="" class="mt-12 flex items-center justify-center">
+      <div>
+        {% csrf_token %}
+        {{ form.as_p }}
+
+        <button type="submit" class="border-1 p-1 border-green-700">Submit</button>
+      </div>
+      
+
+      
+    </form>
+  </div>
+        
+       
+       
+
+{% endblock content %}

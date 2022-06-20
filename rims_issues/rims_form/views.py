@@ -6,7 +6,12 @@ from .forms import RimsForm, RimsModelForm, CustomUserCreationForm
 
 # Create your views here.
 
+class SignupView(generic.CreateView):
+    template_name = "registration/signup.html"
+    form_class = CustomUserCreationForm
 
+    def get_success_url(self):
+        return reverse("login")
 
 def home_page(request):
     

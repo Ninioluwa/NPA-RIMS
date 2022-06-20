@@ -22,3 +22,11 @@ class RimsModelForm(forms.ModelForm):
             'issues',
         }
  
+
+ 
+class CustomUserCreationForm(UserCreationForm):
+    class Meta:
+        model = User
+
+        fields = ("username", "email" )
+        field_classes = {'username': UsernameField}

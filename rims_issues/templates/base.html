@@ -18,6 +18,7 @@
           {% endif %}
           {% if request.user.is_authenticated %}
             {{ request.user.username }}
+            <a href="/create" class="hover:text-gray-200"> New Issue </a>
             <a href="{% url 'logout' %}" class="hover:text-gray-200"> Logout </a>
           {% else %}
             <a href="{% url 'login' %}" class="hover:text-gray-200"> Login </a>

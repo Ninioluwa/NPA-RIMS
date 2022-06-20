@@ -125,5 +125,5 @@ STATIC_ROOT = "static_root"
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-
+LOGIN_REDIRECT_URL = "/dashboard"
 AUTH_USER_MODEL = 'rims_form.User'

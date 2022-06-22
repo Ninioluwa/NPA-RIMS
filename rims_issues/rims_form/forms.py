@@ -7,10 +7,15 @@ User = get_user_model()
 
 
 class RimsForm(forms.Form):
+    CHOICES = [
+        ('NEW', 'New'),
+        ('RESOLVED', 'Resolved')
+     ]
+
     subject = forms.CharField(
         widget=forms.TextInput(attrs={'class': 'border-2'}))
-    status = forms.CharField(
-        widget=forms.TextInput(attrs={'class': 'border-2'}))
+    status = forms.ChoiceField(choices=CHOICES, 
+        widget=forms.Select(attrs={'class': 'border-2'}))
     sen_no = forms.CharField(
         widget=forms.TextInput(attrs={'class': 'border-2'}))
     issues = forms.CharField(
@@ -25,6 +30,7 @@ class RimsModelForm(forms.ModelForm):
             'sen_no',
             'status',
             'issues',
+            
         }
 
 

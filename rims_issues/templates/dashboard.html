@@ -13,35 +13,36 @@
                     <th class="border border-gray-700 p-1">Sen Number</th>
                     <th class="border border-gray-700 p-1">Status</th>
                     <th class="border border-gray-700 p-1">Date</th>
-                    <th class="border border-gray-700 p-1">Action</th>
-                    
+
+                    {% if request.user.is_superuser %}
+                        <th class="border border-gray-700 p-1">Action</th>
+                    {% endif %}
 
                 </tr>
     {% for issue in issues %}
+        {% if issue.status != "RESOLVED"%}       
                 <tr class="border border-gray-700">
-                 
-                    <td class="border border-gray-700 p-1">{{ issue }}</td>
-                    <td class="border border-gray-700 p-1">{{ request.user.port }}</td>
+                    <td class="border border-gray-700 p-1"><a href="{{ issue.pk }}/">{{ issue }}</a> 
+                    <td class="border border-gray-700 p-1">{{ issue.user.port }}</td>
                     <td class="border border-gray-700 p-1">{{ issue.sen_no }}</td>
-                    <td class="border border-gray-700 p-1">{{ issue.status }}</td>
+                    
+                        <td class="border border-gray-700 p-1">{{ issue.status }}</td>
+                    
                     <td class="border border-gray-700 p-1">{{ issue.date_submitted }}</td>
-                    <!-- <td class="border border-gray-700 p-1"><a href="{{ issue.pk }}/">Edit</a></td> -->
-                    <td class="border border-gray-700 p-1"><a href="/{{ issue.pk }}/update">Update</a> 
-                                                           <a href="/{{ issue.pk }}/delete"> Delete</a>  </td>
+                    
+
+                    {% if request.user.is_superuser %}
+                        <td class="border border-gray-700 p-1"><a href="/{{ issue.pk }}/update">Update</a> 
+                                                               <a href="/{{ issue.pk }}/delete"> Delete</a>  </td>
+                    {% endif %}
                 </tr>
+        {% endif %}
     {% endfor %}          
             </table>
   
         </div>
 
-        <div>
-            <b>LAGOS PORTS</b>
-            <ul>
-                {% for lagos_issue in lagos_issues %}
-                    <li>{{ lagos_issue }}</li>
-                {% endfor %}
-            </ul>
-        </div>
+        
     </div>
        
     

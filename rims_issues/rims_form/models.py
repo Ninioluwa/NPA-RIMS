@@ -36,10 +36,14 @@ class User(AbstractUser):
 
 
 class IssuesModel(models.Model):
+    CHOICES = [
+        ('NEW', 'New'),
+        ('RESOLVED', 'Resolved')
+     ]
 
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     sen_no = models.CharField(max_length=20)
-    status = models.CharField(max_length=20)
+    status = models.CharField(max_length=20, choices=CHOICES)
     subject = models.CharField(max_length=100)
     issues = models.TextField()
     date_submitted = models.DateField(auto_now_add=True)

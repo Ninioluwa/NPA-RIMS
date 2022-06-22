@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect, reverse
+from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.views import generic
 from .models import IssuesModel
@@ -28,10 +29,6 @@ def dashboard(request):
         issues = IssuesModel.objects.filter(
             user__port=request.user.port)
 
-    print(IssuesModel.objects.filter(
-        user__port="reivers"))
-    print(request.user.port)
-
     # lagos_list = IssuesModel.objects.filter(port__)
     # lagos_issues = IssuesModel.objects.filter(port_id=1)
 
@@ -46,6 +43,8 @@ def dashboard(request):
 @login_required
 def issues_detail(request, pk):
     issue = IssuesModel.objects.get(id=pk)
+    if issue.user != request.user:
+        return HttpResponse("fuck off")
 
     context = {
         'issue': issue
@@ -93,6 +92,9 @@ def issue_create(request):
 @login_required
 def issue_update(request, pk):
     issue = IssuesModel.objects.get(id=pk)
+    if issue.user != request.user:
+        return HttpResponse("fuck off")
+
     form = RimsModelForm(instance=issue)
     if request.method == 'POST':
         form = RimsModelForm(request.POST, instance=issue)

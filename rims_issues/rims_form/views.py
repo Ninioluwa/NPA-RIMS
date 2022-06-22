@@ -1,10 +1,11 @@
 from django.shortcuts import render, redirect, reverse
-from django.http import HttpResponse
+from django.contrib.auth.decorators import login_required
 from django.views import generic
-from .models import IssuesModel, Branch
+from .models import IssuesModel
 from .forms import RimsForm, RimsModelForm, CustomUserCreationForm
 
 # Create your views here.
+
 
 class SignupView(generic.CreateView):
     template_name = "registration/signup.html"
@@ -13,12 +14,23 @@ class SignupView(generic.CreateView):
     def get_success_url(self):
         return reverse("login")
 
+
 def home_page(request):
-    
+
     return render(request, 'index.html', {})
 
+
+@login_required
 def dashboard(request):
-    issues = IssuesModel.objects.all()
+    if request.user.is_superuser:
+        issues = IssuesModel.objects.all()
+    else:
+        issues = IssuesModel.objects.filter(
+            user__port=request.user.port)
+
+    print(IssuesModel.objects.filter(
+        user__port="reivers"))
+    print(request.user.port)
 
     # lagos_list = IssuesModel.objects.filter(port__)
     # lagos_issues = IssuesModel.objects.filter(port_id=1)
@@ -30,6 +42,8 @@ def dashboard(request):
 
     return render(request, 'dashboard.html', context)
 
+
+@login_required
 def issues_detail(request, pk):
     issue = IssuesModel.objects.get(id=pk)
 
@@ -38,18 +52,21 @@ def issues_detail(request, pk):
     }
     return render(request, "issues_detail.html", context)
 
+
+@login_required
 def rims_form(request):
     issues = IssuesModel.objects.all()
     context = {
         'issues': issues
     }
     return render(request, 'issues_form.html', context)
-    # return render(request, 'index.html', context) 
+    # return render(request, 'index.html', context)
 
+
+@login_required
 def issue_create(request):
     form = RimsForm()
     if request.method == "POST":
-        print("iNCOMING post request")
         form = RimsForm(request.POST)
 
         if form.is_valid():
@@ -58,13 +75,12 @@ def issue_create(request):
             status = form.cleaned_data['status']
             sen_no = form.cleaned_data['sen_no']
             issues = form.cleaned_data['issues']
-            port = Branch.objects.first()
             IssuesModel.objects.create(
                 subject=subject,
                 status=status,
                 sen_no=sen_no,
                 issues=issues,
-                port=port
+                user=request.user
             )
             return redirect("/dashboard")
 
@@ -73,6 +89,8 @@ def issue_create(request):
     }
     return render(request, "issue_create.html", context)
 
+
+@login_required
 def issue_update(request, pk):
     issue = IssuesModel.objects.get(id=pk)
     form = RimsModelForm(instance=issue)
@@ -89,8 +107,8 @@ def issue_update(request, pk):
 
     return render(request, "issue_update.html", context)
 
-  
 
+@login_required
 def issue_delete(request, pk):
     issue = IssuesModel.objects.get(id=pk)
     issue.delete()

@@ -4,18 +4,18 @@
 {% load static %}
 <!-- Body -->
   <div>
-    <div class="mt-24 flex items-center justify-center">
-      <img class="w-1/4" src="{% static 'img/pc2.svg' %}">
+    <div class=" flex items-center justify-center">
+      <img class="w-1/2" src="{% static 'img/pc1.svg' %}">
     </div>
   
-    <div class="ml-12 items-center justify-center text-center font-sans font-bold">
+    <div class=" items-center justify-center text-center font-sans font-bold">
     
       <div class="text-gray-600">
         <p class="mt-4 text-lg text-black">NPA RIMS Issue<br></p>
         <p class="mb-6 text-sm">Submit RIMS Issues for your port<br></p>
       </div>
   
-      <a href="#" class="text-gray-200 hover:text-white bg-green-600 p-2 rounded-lg">Get Started</a>
+      <a href="{% url 'signup' %}" class="text-gray-200 hover:text-white bg-green-600 p-2 rounded-lg">Get Started</a>
     
     </div>
   </div>

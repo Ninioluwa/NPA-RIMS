@@ -2,8 +2,9 @@ from django.shortcuts import render, redirect, reverse
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.views import generic
-from .models import IssuesModel
-from .forms import RimsForm, RimsModelForm, CustomUserCreationForm
+from django.core.paginator import Paginator
+from .models import IssuesModel, User
+from .forms import RimsForm, RimsModelForm, CustomUserCreationForm,  AuthorizeUserForm
 
 # Create your views here.
 
@@ -13,14 +14,32 @@ class SignupView(generic.CreateView):
     form_class = CustomUserCreationForm
 
     def get_success_url(self):
-        return reverse("login")
-
+        return reverse("unauthorized")
+        
+class UnauthorizedView(generic.TemplateView):
+    template_name = "unauthorized.html"
+    form_class =  AuthorizeUserForm
+    extra_context = {'users': User.objects.all()}
 
 def home_page(request):
 
     return render(request, 'index.html', {})
 
+@login_required
+def resolved_issues(request):
+    if request.user.is_superuser:
+        issues = IssuesModel.objects.all()
+    else:
+        issues = IssuesModel.objects.filter(
+            user__port=request.user.port)
+    users = User.objects.all()
 
+    context = {
+        'issues': issues,
+        'users': users,
+    }
+
+    return render(request, 'resolvedissues.html', context)
 @login_required
 def dashboard(request):
     if request.user.is_superuser:
@@ -28,13 +47,11 @@ def dashboard(request):
     else:
         issues = IssuesModel.objects.filter(
             user__port=request.user.port)
-
-    # lagos_list = IssuesModel.objects.filter(port__)
-    # lagos_issues = IssuesModel.objects.filter(port_id=1)
+    users = User.objects.all()
 
     context = {
         'issues': issues,
-        # 'lagos_issue': lagos_issues
+        'users': users,
     }
 
     return render(request, 'dashboard.html', context)
@@ -43,8 +60,8 @@ def dashboard(request):
 @login_required
 def issues_detail(request, pk):
     issue = IssuesModel.objects.get(id=pk)
-    if issue.user != request.user:
-        return HttpResponse("fuck off")
+    # if issue.user != request.user:
+    #     return HttpResponse("fuck off")
 
     context = {
         'issue': issue
@@ -52,13 +69,13 @@ def issues_detail(request, pk):
     return render(request, "issues_detail.html", context)
 
 
-@login_required
-def rims_form(request):
-    issues = IssuesModel.objects.all()
-    context = {
-        'issues': issues
-    }
-    return render(request, 'issues_form.html', context)
+# @login_required
+# def rims_form(request):
+#     issues = IssuesModel.objects.all()
+#     context = {
+#         'issues': issues
+#     }
+#     return render(request, 'issues_form.html', context)
     # return render(request, 'index.html', context)
 
 
@@ -92,8 +109,8 @@ def issue_create(request):
 @login_required
 def issue_update(request, pk):
     issue = IssuesModel.objects.get(id=pk)
-    if issue.user != request.user:
-        return HttpResponse("fuck off")
+    if not request.user.is_superuser:
+        return HttpResponse("You don't have Permission to Update this issue. Contact the administrator for necessary updates.")
 
     form = RimsModelForm(instance=issue)
     if request.method == 'POST':

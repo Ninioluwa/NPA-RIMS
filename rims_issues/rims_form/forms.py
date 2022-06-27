@@ -39,3 +39,7 @@ class CustomUserCreationForm(UserCreationForm):
         model = User
         fields = ("username", "email", "port")
         field_classes = {'username': UsernameField}
+
+class AuthorizeUserForm(forms.Form):
+    is_active=forms.BooleanField(
+        widget=forms.CheckboxInput, label=User)

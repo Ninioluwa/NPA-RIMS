@@ -35,10 +35,46 @@ class RimsModelForm(forms.ModelForm):
 
 
 class CustomUserCreationForm(UserCreationForm):
+    CHOICES = [
+        ('LAGOS', 'Lagos'),
+        ('TIN-CAN', 'Tin-Can'),
+        ('RIVERS', 'Rivers'),
+        ('DELTA', 'Delta'),
+        ('CALABAR', 'Calabar'),
+        ('ONNE', 'Onne')
+    ]
+
+    email = forms.EmailField(widget=forms.EmailInput(
+        attrs={
+        "class": "text-gray-800 block w-full px-3 py-2 mb-3 text-sm leading-tight  border rounded ",
+        "size":"50",
+        "placeholder":"Email" 
+        }))
+    
+    username = forms.CharField(widget=forms.TextInput(
+        attrs={
+        "class": "text-gray-800 block w-full px-3 py-2 mb-3 text-sm leading-tight  border rounded ",
+        "size":"50",
+        "placeholder":"Name"
+        }))
+
+    port = forms.ChoiceField(choices=CHOICES, widget=forms.Select(
+        attrs={
+        "class":"text-gray-800 block mb-3 px-3 py-2 w-full text-sm leading-tight  border rounded",
+        "placeholder":"-------------"
+        
+    }))
+                    
     class Meta:
         model = User
-        fields = ("username", "email", "port")
+        fields = ("username", "email", "port", "password1", "password2")
         field_classes = {'username': UsernameField}
+    
+    def __init__(self, *args, **kwargs):
+        super(CustomUserCreationForm, self).__init__(*args, **kwargs)
+
+        self.fields['password1'].widget.attrs['class']="block mb-3 px-3 py-2 w-full text-sm leading-tight text-gray-800  border rounded"
+        self.fields['password2'].widget.attrs['class']="block mb-3 px-3 py-2 w-full text-sm leading-tight text-gray-800  border rounded"
 
 class AuthorizeUserForm(forms.Form):
     is_active=forms.BooleanField(

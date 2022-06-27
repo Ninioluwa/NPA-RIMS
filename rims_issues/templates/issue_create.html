@@ -4,46 +4,13 @@
   <div>
 
 
-    <div class="rounded-3xl border-lg shadow-xl  bg-green-500 py-4">
+    <div class="text-white rounded-3xl border-lg shadow-xl  bg-green-500 py-4">
       <h3 class="pt-6 text-2xl text-center font-bold text-white">Submit new Issue</h3>
       <form method="post" action="" class="px-8 pt-6 pb-8 mb-4 bg-white rounded bg-green-500">
 
               {% csrf_token %}
+              {{ form.as_p }}
 
-              <label class="block mb-2 text-sm font-bold text-gray-100" for="subject">
-                  Subject
-              </label>
-              <input
-                  class="w-full px-3 py-2 mb-3 text-sm leading-tight  border rounded "
-                  size="50"
-              />
-              
-              <label class="block mb-2 text-sm font-bold text-gray-100" for="status">
-                Status
-              </label>
-              <select
-                class="mb-3 p-1 w-full"
-              >
-              <option value="NEW">New</option>
-              <option value="RESOLVED">Resolved</option>
-              </select>
-              
-              <label class="block mb-2 text-sm font-bold text-gray-100" for="sen_no">
-                Sen Number
-              </label>
-              <input
-                class="w-full px-3 py-2 mb-3 text-sm leading-tight  border rounded "
-                size="50"
-              />
-
-              <label class="block mb-2 text-sm font-bold text-gray-100" for="issue">
-                Issue
-              </label>
-              <textarea
-                class="w-full px-3 py-2 mb-3 text-sm leading-tight  border rounded"
-                size="50"
-              >
-              </textarea>
 
               <div class="mt-6 mb-2 text-center">
                 <button

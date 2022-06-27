@@ -41,6 +41,9 @@
                     <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
                      Status
                     </th>
+                    <!-- <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                      Issue
+                     </th> -->
                     <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
                     Date
                     </th>
@@ -56,7 +59,9 @@
                 {% if issue.status != "RESOLVED"%} 
                   <tr class="border-b">
                     <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                      
                       {{ issue }}
+                    
                     </td>
                     <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
                         {{ issue.user.port }}
@@ -67,6 +72,9 @@
                     <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
                         {{ issue.status }}
                     </td>
+                    <!-- <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                      {{ issue.issues }}
+                  </td> -->
                     <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
                         {{ issue.date_submitted }}
                     </td>

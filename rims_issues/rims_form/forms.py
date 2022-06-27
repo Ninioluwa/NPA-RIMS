@@ -13,13 +13,26 @@ class RimsForm(forms.Form):
      ]
 
     subject = forms.CharField(
-        widget=forms.TextInput(attrs={'class': 'border-2'}))
+            widget=forms.TextInput(
+                attrs={
+                    "class": "text-gray-800 block w-full px-3 py-2 mb-3 text-sm leading-tight  border rounded ",
+                    
+                    }))
     status = forms.ChoiceField(choices=CHOICES, 
-        widget=forms.Select(attrs={'class': 'border-2'}))
+            widget=forms.Select(
+                attrs={
+                    "class":"text-gray-800 block mb-3 px-3 py-2 w-full text-sm leading-tight  border rounded",
+                    }))
     sen_no = forms.CharField(
-        widget=forms.TextInput(attrs={'class': 'border-2'}))
+            widget=forms.TextInput(attrs={
+                "class": "text-gray-800 block w-full px-3 py-2 mb-3 text-sm leading-tight  border rounded ",
+                
+                }))
     issues = forms.CharField(
-        widget=forms.Textarea(attrs={'class': 'border-2'}))
+            widget=forms.Textarea(attrs={
+                "class": "text-gray-800 block w-full px-3 py-2 mb-3 text-sm leading-tight  border rounded ",
+               
+                }))
 
 
 class RimsModelForm(forms.ModelForm):

@@ -2,23 +2,15 @@
 
 {% block content %}
   <div>
-    <p class="text-2xl font-bold"></p>
 
-    <form method="post" action="" class="mt-12 flex items-center justify-center">
-      <div>
-        {% csrf_token %}
-        {{ form.as_p }}
 
-        <button type="submit" class="border-1 p-1 border-green-700">Submit</button>
-      </div>
-
-    </form>
-
-    <!-- <div class=" border-lg shadow-xl  bg-green-500 py-4">
+    <div class="rounded-3xl border-lg shadow-xl  bg-green-500 py-4">
       <h3 class="pt-6 text-2xl text-center font-bold text-white">Submit new Issue</h3>
-      <form method="" action="" class="px-8 pt-6 pb-8 mb-4 bg-white rounded bg-green-500">
-            
-              <label class="block mb-2 text-sm font-bold text-gray-700" for="subject">
+      <form method="post" action="" class="px-8 pt-6 pb-8 mb-4 bg-white rounded bg-green-500">
+
+              {% csrf_token %}
+
+              <label class="block mb-2 text-sm font-bold text-gray-100" for="subject">
                   Subject
               </label>
               <input
@@ -26,7 +18,7 @@
                   size="50"
               />
               
-              <label class="block mb-2 text-sm font-bold text-gray-700" for="status">
+              <label class="block mb-2 text-sm font-bold text-gray-100" for="status">
                 Status
               </label>
               <select
@@ -36,7 +28,7 @@
               <option value="RESOLVED">Resolved</option>
               </select>
               
-              <label class="block mb-2 text-sm font-bold text-gray-700" for="sen_no">
+              <label class="block mb-2 text-sm font-bold text-gray-100" for="sen_no">
                 Sen Number
               </label>
               <input
@@ -44,7 +36,7 @@
                 size="50"
               />
 
-              <label class="block mb-2 text-sm font-bold text-gray-700" for="issue">
+              <label class="block mb-2 text-sm font-bold text-gray-100" for="issue">
                 Issue
               </label>
               <textarea
@@ -56,7 +48,7 @@
               <div class="mt-6 mb-2 text-center">
                 <button
                     class="w-1/2 px-4 py-2 font-bold text-white bg-green-600 rounded-full hover:bg-green-700"
-                    type="button"
+                    type="submit"
                 >
                    Submit
                 </button>
@@ -68,7 +60,7 @@
     </div>
   </div>
         
-        -->
+       
        
 
 {% endblock content %}

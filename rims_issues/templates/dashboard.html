@@ -55,7 +55,9 @@
                 {% for issue in issues %}
                 {% if issue.status != "RESOLVED"%} 
                   <tr class="border-b">
-                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{{ issue }}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                      {{ issue }}
+                    </td>
                     <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
                         {{ issue.user.port }}
                     </td>
@@ -70,8 +72,8 @@
                     </td>
                     {% if request.user.is_superuser %}
                     <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                        <a href="/{{ issue.pk }}/update">Update</a> 
-                        <a href="/{{ issue.pk }}/delete"> Delete</a> 
+                        <a href="/{{ issue.pk }}/update" class="text-green-500">Update</a> 
+                        <a href="/{{ issue.pk }}/delete" class="text-red-600"> Delete</a> 
                     </td>
                     {% endif %}
                     

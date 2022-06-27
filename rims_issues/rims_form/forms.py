@@ -23,6 +23,33 @@ class RimsForm(forms.Form):
 
 
 class RimsModelForm(forms.ModelForm):
+    CHOICES = [
+            ('NEW', 'New'),
+            ('RESOLVED', 'Resolved')
+        ]
+
+    subject = forms.CharField(
+            widget=forms.TextInput(
+                attrs={
+                    "class": "text-gray-800 block w-full px-3 py-2 mb-3 text-sm leading-tight  border rounded ",
+                    "readonly": True,
+                    }))
+    status = forms.ChoiceField(choices=CHOICES, 
+            widget=forms.Select(
+                attrs={
+                    "class":"text-gray-800 block mb-3 px-3 py-2 w-full text-sm leading-tight  border rounded",
+                    }))
+    sen_no = forms.CharField(
+            widget=forms.TextInput(attrs={
+                "class": "text-gray-800 block w-full px-3 py-2 mb-3 text-sm leading-tight  border rounded ",
+                "readonly": True,
+                }))
+    issues = forms.CharField(
+            widget=forms.Textarea(attrs={
+                "class": "text-gray-800 block w-full px-3 py-2 mb-3 text-sm leading-tight  border rounded ",
+                "readonly": True,
+                }))
+
     class Meta:
         model = IssuesModel
         fields = {
@@ -36,6 +63,7 @@ class RimsModelForm(forms.ModelForm):
 
 class CustomUserCreationForm(UserCreationForm):
     CHOICES = [
+        ('----', '----------'),
         ('LAGOS', 'Lagos'),
         ('TIN-CAN', 'Tin-Can'),
         ('RIVERS', 'Rivers'),
@@ -69,13 +97,15 @@ class CustomUserCreationForm(UserCreationForm):
         model = User
         fields = ("username", "email", "port", "password1", "password2")
         field_classes = {'username': UsernameField}
+        
     
     def __init__(self, *args, **kwargs):
         super(CustomUserCreationForm, self).__init__(*args, **kwargs)
 
         self.fields['password1'].widget.attrs['class']="block mb-3 px-3 py-2 w-full text-sm leading-tight text-gray-800  border rounded"
+        self.fields['password1'].help_text=None
         self.fields['password2'].widget.attrs['class']="block mb-3 px-3 py-2 w-full text-sm leading-tight text-gray-800  border rounded"
-
+        self.fields['password2'].help_text=None
 
 
 

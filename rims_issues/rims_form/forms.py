@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth import get_user_model
-from django.contrib.auth.forms import UserCreationForm, UsernameField
+from django.contrib.auth.forms import UserCreationForm, UsernameField, AuthenticationForm
 from .models import IssuesModel
 
 User = get_user_model()
@@ -61,7 +61,7 @@ class CustomUserCreationForm(UserCreationForm):
     port = forms.ChoiceField(choices=CHOICES, widget=forms.Select(
         attrs={
         "class":"text-gray-800 block mb-3 px-3 py-2 w-full text-sm leading-tight  border rounded",
-        "placeholder":"-------------"
+        
         
     }))
                     
@@ -75,6 +75,9 @@ class CustomUserCreationForm(UserCreationForm):
 
         self.fields['password1'].widget.attrs['class']="block mb-3 px-3 py-2 w-full text-sm leading-tight text-gray-800  border rounded"
         self.fields['password2'].widget.attrs['class']="block mb-3 px-3 py-2 w-full text-sm leading-tight text-gray-800  border rounded"
+
+
+
 
 class AuthorizeUserForm(forms.Form):
     is_active=forms.BooleanField(

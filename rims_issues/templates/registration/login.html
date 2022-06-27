@@ -2,16 +2,16 @@
 
 {% block content %}
 
-<form method="post">
+<!-- <form method="post">
     {% csrf_token %}
     {{ form.as_p }}
     <button type="submit">Login</button>
-</form> 
-    <!-- <div class="rounded-3xl border-lg shadow-xl  bg-green-500 py-4">
+</form>  -->
+    <div class="rounded-3xl border-lg shadow-xl  bg-green-500 py-4">
         <h3 class="pt-6 text-2xl text-center font-bold text-white">Welcome!</h3>
-        <form method="" action="" class="px-8 pt-6 pb-8 mb-4 bg-white rounded bg-green-500">
+        <form method="post" action="" class="px-8 pt-6 pb-8 mb-4 bg-white rounded bg-green-500">
            
-            
+                {% csrf_token %}
                
                 <label class="block mb-2 text-sm font-bold text-gray-100" for="username">
                     Username
@@ -19,8 +19,7 @@
                 <input
                     class="w-full px-3 py-2 mb-3 text-sm leading-tight  border rounded "
                     size="50"
-                    id="username"
-                    type="username"
+                    name="username"
                     placeholder="Username"
                 />
            
@@ -30,7 +29,7 @@
               </label>
               <input
                   class="w-full px-3 py-2 mb-3 text-sm leading-tight  border rounded "
-                  id="password"
+                  name="password"
                   type="password"
                   placeholder="Password"
               />
@@ -38,7 +37,7 @@
               <div class="mt-6 mb-4 text-center">
                 <button
                     class="w-1/2 px-4 py-2 font-bold text-white bg-green-600 rounded-full hover:bg-green-700"
-                    type="button"
+                    type="submit"
                 >
                    Login
                 </button>
@@ -47,7 +46,7 @@
         </div>
     </form>
 </div>
- -->
+
 
 
 {% endblock content %}

@@ -96,7 +96,7 @@ class CustomUserCreationForm(UserCreationForm):
         attrs={
         "class": "text-gray-800 block w-full px-3 py-2 mb-3 text-sm leading-tight  border rounded ",
         "size":"50",
-        "placeholder":"Name"
+        "placeholder":"E.g Ojabo_John"
         }))
 
     port = forms.ChoiceField(choices=CHOICES, widget=forms.Select(
@@ -119,9 +119,13 @@ class CustomUserCreationForm(UserCreationForm):
         self.fields['password1'].help_text=None
         self.fields['password2'].widget.attrs['class']="block mb-3 px-3 py-2 w-full text-sm leading-tight text-gray-800  border rounded"
         self.fields['password2'].help_text=None
-
+        
 
 
 class AuthorizeUserForm(forms.Form):
     is_active=forms.BooleanField(
-        widget=forms.CheckboxInput, label=User)
+        widget=forms.CheckboxInput(attrs={
+            "class":"border",
+            "label":User
+            }
+            ) )

@@ -4,29 +4,67 @@
 
 
 {% if request.user.is_superuser %}
+<div>
 <h1 class = "mt-4 font-bold">Unauthorized Users</h1>
-<ul>
-    {% for user in users %}
-    
-        {% if not user.is_active %}
-        
-            <li>{{ user }}</li>
-        
-            
-        {% endif %}
-    </ul>
-    
-    
-    {% endfor %}
+<div class="flex flex-col">
+    <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
+      <div class="py-2 inline-block min-w-full sm:px-6 lg:px-8">
+        <div class="overflow-hidden">
+          <table class="min-w-full">
+            <thead class="border-b">
+              <tr>
+                <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                  Username
+                </th>
+                <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                  Email
+                </th>
+                <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                  Authorize
+                </th>
+             </tr>
+            </thead>
+             {% for user in users %}
+                {% if not user.is_active %}
+                <tr class="border-b">
+                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                      
+                        {{ user.username }}
+                    
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm font-light text-gray-900">
+                      
+                        {{ user }}
+                    
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm font-light text-gray-900">
+                      
+                        <form method="post">
+                            <div>
+                              {% csrf_token %}
+                              {{ form.as_p }}
+                      
+                              <button type="submit" class="text-green-600">YES</button>
+                            </div>
+                        </form>
+                    
+                    </td>
+                    
+                {% endif %}
+            {% endfor %}
+             <tr>
 
-    <form method="post">
-        <div>
-          {% csrf_token %}
-          {{ form.as_p }}
-  
-          <button type="submit">Submit</button>
-        </div>
-    </form>
+            
+            
+        </table>
+    </div>
+    </div>
+    </div>
+</div>
+        
+</div>
+
+    
 
 {% else %}
     <p>You haven't been authorized by an admin, hence you can't login</p>
